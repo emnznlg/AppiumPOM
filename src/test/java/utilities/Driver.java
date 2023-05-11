@@ -1,55 +1,47 @@
 package utilities;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class Driver {
 
     private Driver() {
     }
 
+    private static UiAutomator2Options options;
     private static AppiumDriver driver;
 
-    private static DesiredCapabilities capabilities;
-
     public static AppiumDriver getDriver() {
-        if (driver == null) {
 
+        if (driver == null) {
             switch (ConfigReader.getProperty("platformName")) {
                 case "Android":
-                    capabilities = new DesiredCapabilities();
-                    capabilities.setCapability("platformName", ConfigReader.getProperty("platformName"));
-                    capabilities.setCapability("udid", ConfigReader.getProperty("udid"));
-                    capabilities.setCapability("appPackage", ConfigReader.getProperty("appPackage"));
-                    capabilities.setCapability("appActivity", ConfigReader.getProperty("appActivity"));
-                    capabilities.setCapability("automationName", ConfigReader.getProperty("automationName"));
-                    capabilities.setCapability("deviceName", ConfigReader.getProperty("deviceName"));
-                    capabilities.setCapability("noReset", ConfigReader.getProperty("noReset"));
+                    options = new UiAutomator2Options()
+                            .setAppPackage("com.dmall.mfandroid")
+                            .setAppActivity("com.dmall.mfandroid.activity.base.NewSplash")
+                            .setUdid("emulator-5554")
+                            //.setApp("n11.apk")
+                            .setNoReset(false);
                 case "IOS":
-                    System.out.println("IOS ile ilgili konfigurasyonlar...");
+                    //ios ile ilgili konfigurasyonlar buraya...
             }
-
-        }
-
-        try {
-            driver = new AppiumDriver(new URL("http://127.0.0.1:4723"), capabilities);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            try {
+                driver = new AndroidDriver(
+                        new URL("http://127.0.0.1:4723"), options
+                );
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         return driver;
     }
-
 
     public static void closeDriver() {
         if (driver != null) {
@@ -57,6 +49,5 @@ public class Driver {
             driver = null;
         }
     }
-
 
 }
