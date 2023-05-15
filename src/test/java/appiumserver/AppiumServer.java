@@ -11,7 +11,6 @@ public class AppiumServer {
     static String mainJSpath = "C:/Users/emin/node_modules/appium/build/lib/main.js";
 
     public static void start() {
-
         if (server == null) {
             AppiumServiceBuilder builder = new AppiumServiceBuilder();
             builder.withIPAddress("127.0.0.1")
@@ -24,12 +23,10 @@ public class AppiumServer {
         }
     }
 
-
     public static void stop() {
         if (server.isRunning()) {
             server.stop();
         }
     }
-
 
 }

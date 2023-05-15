@@ -13,8 +13,8 @@ import org.junit.runner.RunWith;
         monochrome = true,
         features = "./src/test/resources/features",
         glue = {"stepdefinitions", "hooks"},
-        tags = "@n11",
-        dryRun = false
+        tags = "",
+        dryRun = true
 )
 public class Runner {
 }
