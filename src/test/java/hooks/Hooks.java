@@ -7,8 +7,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import utilities.Driver;
 
-import static appiumserver.AppiumServer.start;
-import static appiumserver.AppiumServer.stop;
+import static appiumserver.AppiumServer.*;
+
 
 public class Hooks {
 
@@ -24,8 +24,7 @@ public class Hooks {
             final byte[] failedScreenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
             scenario.attach(failedScreenshot, "image/png", "failed-scenario-" + scenario.getName());
         }
-        Driver.closeDriver();
-        //Her testten once Appium server programatik olarak kapatiliyor...
+        //Driver.closeDriver();
         //stop();
     }
 
