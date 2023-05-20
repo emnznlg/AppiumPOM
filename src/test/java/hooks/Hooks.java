@@ -7,8 +7,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import utilities.Driver;
 
-import static appiumserver.AppiumServer.*;
-
 
 public class Hooks {
 
